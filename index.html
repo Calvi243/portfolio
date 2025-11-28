@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calvin Endolo - Développeur & Technicien Informatique</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        /* Variables CSS */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --text-light: #fff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        /* Reset et styles de base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f9f9f9;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--secondary-color);
+            color: var(--text-light);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        /* Header et Navigation */
+        header {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Hero Section avec Slider */
+        .hero {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+
+        .slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 62, 80, 0.7);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .hero-content span {
+            color: var(--secondary-color);
+        }
+
+        .slider-controls {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 2;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .slider-dot.active {
+            background-color: var(--secondary-color);
+            transform: scale(1.2);
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-img {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            max-width: 400px;
+        }
+
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .about-img:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .about-text p {
+            margin-bottom: 15px;
+        }
+
+        .skills {
+            margin-top: 30px;
+        }
+
+        .skill {
+            margin-bottom: 20px;
+        }
+
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .skill-bar {
+            height: 10px;
+            background-color: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .skill-level {
+            height: 100%;
+            background-color: var(--secondary-color);
+            border-radius: 5px;
+            width: 0;
+            transition: width 1.5s ease;
+        }
+
+        /* Services Section */
+        .services {
+            background-color: var(--light-color);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: white;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .service-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .service-card:hover .service-img img {
+            transform: scale(1.1);
+        }
+
+        .service-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .service-card h3 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        /* Maintenance Section */
+        .maintenance {
+            background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.9)), url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+            color: var(--text-light);
+        }
+
+        .maintenance-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .maintenance-img {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .maintenance-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .maintenance-img:hover img {
+            transform: scale(1.05);
+        }
+
+        .maintenance-text {
+            flex: 1;
+        }
+
+        .maintenance-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--text-light);
+        }
+
+        .maintenance-list {
+            margin-top: 20px;
+        }
+
+        .maintenance-list li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .maintenance-list i {
+            color: var(--secondary-color);
+            margin-right: 10px;
+        }
+
+        /* Portfolio Section */
+        .portfolio-filter {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px 10px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            border-radius: 5px;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .portfolio-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .portfolio-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(52, 152, 219, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: var(--transition);
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-item:hover .portfolio-img {
+            transform: scale(1.1);
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: var(--light-color);
+        }
+
+        .contact-content {
+            display: flex;
+            gap: 50px;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+
+        .contact-form {
+            flex: 1;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo span {
+            color: var(--secondary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .container {
+                width: 95%;
+            }
+            
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .about-content, .contact-content, .maintenance-content {
+                flex-direction: column;
+            }
+            
+            .about-img, .about-text, .contact-info, .contact-form, .maintenance-img, .maintenance-text {
+                width: 100%;
+            }
+            
+            .about-img, .maintenance-img {
+                max-width: 100%;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 0;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--primary-color);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 50px;
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background-color: #2ecc71;
+            color: white;
+            border-radius: 5px;
+            box-shadow: var(--shadow);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 1001;
+            max-width: 350px;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.error {
+            background-color: #e74c3c;
+        }
+        
+        /* Loading animation for form submission */
+        .btn-loading {
+            position: relative;
+            color: transparent;
+        }
+        
+        .btn-loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            margin-left: -10px;
+            margin-top: -10px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s ease infinite;
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">Calvin <span>Endolo</span></div>
+                <ul class="nav-links">
+                    <li><a href="#home">Accueil</a></li>
+                    <li><a href="#about">À propos</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#maintenance">Maintenance</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section avec Slider -->
+    <section id="home" class="hero">
+        <div class="slider">
+            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80')"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1674&q=80')"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1627398242454-45a1465c2479?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80')"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Calvin <span>Endolo</span></h1>
+                <p>Développeur Desktop, Web & Mobile | Technicien en Maintenance Informatique</p>
+                <a href="#portfolio" class="btn">Voir mon travail</a>
+            </div>
+        </div>
+        <div class="slider-controls">
+            <div class="slider-dot active" data-slide="0"></div>
+            <div class="slider-dot" data-slide="1"></div>
+            <div class="slider-dot" data-slide="2"></div>
+            <div class="slider-dot" data-slide="3"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>À Propos de Moi</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-img">
+                    <img src="https://scontent.fbzv3-2.fna.fbcdn.net/v/t39.30808-6/480659550_2149658612156964_7387943684432610878_n.jpg?stp=c0.70.641.641a_dst-jpg_s565x565_tt6&_nc_cat=108&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeHQOD_xm-umIWbuQ9tvvpcSNR9AETdQLlc1H0ARN1AuV3NnxA6O1HYPkefDGjt9naLXxXBGiIfhEhwNTsuGiZRT&_nc_ohc=5HQJ15l6aBAQ7kNvwHQG1Mu&_nc_oc=Adnc32KXXbpMaVtI9qyMkCRYVuHVtbSjvjvtrd_wGQvg5RNMZ6ZlDEnnB1m4wIsenuxWdi4Me3WwFqZazzjWWUdy&_nc_zt=23&_nc_ht=scontent.fbzv3-2.fna&_nc_gid=d1TpbP4Zhm1ksktZxivaeA&oh=00_AfhT4ooeMEg5LhL1fH2ofs13nrYoCjj29WPoH75siCGd4Q&oe=692F7E58" alt="Calvin endolo">
+                </div>
+                <div class="about-text">
+                    <h3>Bonjour, je suis Calvin Endolo</h3>
+                    <p>Développeur passionné avec une expertise en développement desktop, web et mobile. Basé à Kinshasa, République Démocratique du Congo, je crée des solutions digitales innovantes adaptées aux besoins de mes clients.</p>
+                    <p>En plus de mes compétences en développement, je suis technicien spécialisé en maintenance informatique, offrant des solutions complètes pour tous vos besoins technologiques.</p>
+                    
+                    <div class="skills">
+                        <div class="skill">
+                            <div class="skill-name">
+                                <span>HTML/CSS/JavaScript</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-width="95"></div>
+                            </div>
+                        </div>
+                        <div class="skill">
+                            <div class="skill-name">
+                                <span>Flutter</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-width="90"></div>
+                            </div>
+                        </div>
+                        <div class="skill">
+                            <div class="skill-name">
+                                <span>PHP/MySQL</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-width="85"></div>
+                            </div>
+                        </div>
+                        <div class="skill">
+                            <div class="skill-name">
+                                <span>C++, C#, Java/Java Web</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-width="80"></div>
+                            </div>
+                        </div>
+                        <div class="skill">
+                            <div class="skill-name">
+                                <span>Firebase</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-width="85"></div>
+                            </div>
+                        </div>
+                        <div class="skill">
+                            <div class="skill-name">
+                                <span>SQL Server</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-width="75"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="#contact" class="btn" style="margin-top: 20px;">Me contacter</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Mes Services</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1627398242454-45a1465c2479?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80" alt="Développement Web">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Développement Web</h3>
+                        <p>Création de sites web et applications responsives avec HTML, CSS, JavaScript, PHP et Java.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Applications Mobiles">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3>Applications Mobiles & Desktop</h3>
+                        <p>Développement d'applications desktop et mobiles cross-platform avec Flutter, C#, C++ et Firebase.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1544383835-bda2bc66a55d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2036&q=80" alt="Bases de Données">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3>Bases de Données</h3>
+                        <p>Conception et gestion de bases de données avec MySQL, SQL Server et Firebase.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Maintenance Section -->
+    <section id="maintenance" class="section maintenance">
+        <div class="container">
+            <div class="section-title">
+                <h2>Maintenance Informatique</h2>
+            </div>
+            <div class="maintenance-content">
+                <div class="maintenance-img">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Maintenance Informatique">
+                </div>
+                <div class="maintenance-text">
+                    <h3>Service de Maintenance Complète</h3>
+                    <p>Je propose des services de maintenance informatique professionnels pour particuliers et entreprises. Mon expertise couvre tous les aspects de la maintenance des ordinateurs et équipements informatiques.</p>
+                    
+                    <div class="maintenance-list">
+                        <h4>Mes services de maintenance incluent :</h4>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Diagnostic et dépannage matériel</li>
+                            <li><i class="fas fa-check"></i> Nettoyage et optimisation système</li>
+                            <li><i class="fas fa-check"></i> Installation et configuration de logiciels</li>
+                            <li><i class="fas fa-check"></i> Récupération de données</li>
+                            <li><i class="fas fa-check"></i> Installation de systèmes d'exploitation</li>
+                            <li><i class="fas fa-check"></i> Résolution de problèmes réseau</li>
+                            <li><i class="fas fa-check"></i> Maintenance préventive</li>
+                            <li><i class="fas fa-check"></i> Assistance technique à distance</li>
+                        </ul>
+                    </div>
+                    
+                    <a href="#contact" class="btn" style="margin-top: 20px;">Demander un devis</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Mon Portfolio</h2>
+            </div>
+            <div class="portfolio-filter">
+                <button class="filter-btn active" data-filter="all">Tous</button>
+                <button class="filter-btn" data-filter="web">Web</button>
+                <button class="filter-btn" data-filter="mobile">Mobile</button>
+                <button class="filter-btn" data-filter="desktop">Desktop</button>
+                <button class="filter-btn" data-filter="maintenance">Maintenance</button>
+            </div>
+            <div class="portfolio-grid">
+                <div class="portfolio-item" data-category="web">
+                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1674&q=80" alt="Site E-commerce" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Site E-commerce</h3>
+                        <p>Plateforme de vente en ligne avec système de paiement sécurisé</p>
+                        <p><strong>Technologies:</strong> HTML, CSS, JavaScript, PHP, MySQL</p>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="mobile">
+                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Application Fitness" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Application Fitness</h3>
+                        <p>Application mobile de suivi d'activité physique et nutrition</p>
+                        <p><strong>Technologies:</strong> Flutter, Firebase</p>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="desktop">
+                    <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80" alt="Gestion de bibliothèque" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Gestion de bibliothèque</h3>
+                        <p>Système de gestion de bibliothèque avec interface desktop</p>
+                        <p><strong>Technologies:</strong> C#, SQL Server</p>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="mobile">
+                    <img src="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Chat instantané" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Chat instantané</h3>
+                        <p>Application de messagerie instantanée en temps réel</p>
+                        <p><strong>Technologies:</strong> Flutter, Firebase</p>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="desktop">
+                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1674&q=80" alt="Gestion de clés USB" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Gestion de clés USB</h3>
+                        <p>Application de gestion et sécurisation des clés USB</p>
+                        <p><strong>Technologies:</strong> C++</p>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="mobile">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Gestion de stock" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Gestion de stock</h3>
+                        <p>Application mobile de gestion d'inventaire</p>
+                        <p><strong>Technologies:</strong> Flutter, Firebase</p>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="web">
+                    <img src="https://images.unsplash.com/photo-1627398242454-45a1465c2479?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80" alt="Gestion de projets" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Gestion de projets</h3>
+                        <p>Plateforme de gestion de projets collaboratifs</p>
+                        <p><strong>Technologies:</strong> Flutter, Firebase</p>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="maintenance">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Maintenance Ordinateur" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Maintenance Ordinateur</h3>
+                        <p>Diagnostic et réparation d'ordinateurs portables et fixes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contactez-moi</h2>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h3>Adresse</h3>
+                            <p>Kinshasa, République Démocratique du Congo</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h3>Téléphone</h3>
+                            <p>+243 840 287 228</p>
+                            <p>+243 828 833 332</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h3>Email</h3>
+                            <p>mbunzucalvin@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="name" placeholder="Votre nom" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="email" placeholder="Votre email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="subject" placeholder="Sujet" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" id="message" placeholder="Votre message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Envoyer le message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">Calvin <span>Endolo</span></div>
+                    <p>Développeur Desktop, Web & Mobile | Technicien en Maintenance Informatique</p>
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Calvin Endolo. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script>
+        // Configuration EmailJS
+        const EMAILJS_PUBLIC_KEY = 'fbmSlLloZQP_q2ler';
+        const EMAILJS_SERVICE_ID = 'service_pu5bjc4';
+        const EMAILJS_TEMPLATE_ID = 'template_989wyuq';
+
+        // Initialisation EmailJS
+        (function() {
+            emailjs.init(EMAILJS_PUBLIC_KEY);
+            console.log('EmailJS initialisé avec succès');
+        })();
+
+        // Menu mobile
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Fermer le menu en cliquant sur un lien
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Slider d'accueil
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.slider-dot');
+        let currentSlide = 0;
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            currentSlide = (n + slides.length) % slides.length;
+            
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        // Changement automatique de slide
+        setInterval(nextSlide, 5000);
+
+        // Contrôles du slider
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const slideIndex = parseInt(dot.getAttribute('data-slide'));
+                showSlide(slideIndex);
+            });
+        });
+
+        // Filtrage du portfolio
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Retirer la classe active de tous les boutons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Ajouter la classe active au bouton cliqué
+                button.classList.add('active');
+                
+                const filterValue = button.getAttribute('data-filter');
+                
+                portfolioItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Animation au défilement
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.backgroundColor = 'rgba(44, 62, 80, 0.95)';
+            } else {
+                header.style.backgroundColor = 'var(--primary-color)';
+            }
+        });
+
+        // Animation des barres de compétences
+        function animateSkills() {
+            const skillLevels = document.querySelectorAll('.skill-level');
+            skillLevels.forEach(level => {
+                const width = level.getAttribute('data-width');
+                level.style.width = width + '%';
+            });
+        }
+
+        // Observer pour déclencher l'animation des compétences
+        const aboutSection = document.getElementById('about');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateSkills();
+                }
+            });
+        }, { threshold: 0.3 });
+
+        observer.observe(aboutSection);
+
+        // Toast notification
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast';
+            
+            if (isError) {
+                toast.classList.add('error');
+            }
+            
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 5000);
+        }
+
+        // Formulaire de contact avec envoi d'email
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const subject = document.getElementById('subject').value.trim();
+            const message = document.getElementById('message').value.trim();
+            
+            // Validation basique
+            if (!name || !email || !subject || !message) {
+                showToast('Veuillez remplir tous les champs du formulaire.', true);
+                return;
+            }
+            
+            // Afficher un indicateur de chargement
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = '';
+            submitBtn.classList.add('btn-loading');
+            submitBtn.disabled = true;
+            
+            try {
+                // Envoi via EmailJS
+                const templateParams = {
+                    from_name: name,
+                    from_email: email,
+                    subject: subject,
+                    message: message,
+                    to_email: 'mbunzucalvin@gmail.com'
+                };
+
+                await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+                
+                // Inclure le nom et l'email de l'expéditeur dans le message de confirmation
+                showToast(`Merci ${name} (${email}) ! Votre message a été envoyé avec succès. Je vous répondrai dans les plus brefs délais.`);
+                contactForm.reset();
+            } catch (error) {
+                console.error('Erreur lors de l\'envoi du message:', error);
+                showToast('Erreur lors de l\'envoi du message. Veuillez réessayer ou me contacter directement par téléphone.', true);
+            } finally {
+                submitBtn.textContent = originalText;
+                submitBtn.classList.remove('btn-loading');
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
